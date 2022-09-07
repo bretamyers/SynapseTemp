@@ -1,0 +1,18 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "synapsesynccav"
+		},
+		"LS_Synapse_Managed_Identity_connectionString": {
+			"value": ""
+		},
+		"synapsesynccav-WorkspaceDefaultSqlServer_connectionString": {
+			"value": ""
+		},
+		"synapsesynccav-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://synapsesynccav.dfs.core.windows.net/"
+		}
+	}
+}
