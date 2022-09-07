@@ -1512,22 +1512,6 @@
 			"DatabricksOutput": {
 				"type": "object",
 				"defaultValue": "{ \t\"SynapseSync_abfss\": \"abfss://data@synapsesynccav.dfs.core.windows.net/Sample/AdventureWorks/DimCustomer\", \t\"SynapseSync_https\": \"abfss://data@synapsesynccav.dfs.core.windows.net/Sample/\", \t\"PoolName\": \"DataWarehouse\", \t\"DatabaseName\": \"AdventureWorks\", \t\"TableName\": \"FactInternetSales\", \t\"ExistsFlagSynapse\": \"False\", \t\"ChangeTypes\": [ \t\t\"full_load\" \t], \t\"TableRowCount\": \"20\" \t\"SynapseLakehouseSyncKey\": \"fdb1056f48b7bf06b31eea5c2afcb1eb\" }"
-			},
-			"SynapseLakehouseSyncParameters": {
-				"type": "object",
-				"defaultValue": {
-					"PoolName": "DataWarehouse",
-					"SchemaName": "AdventureWorks",
-					"TableName": "DimCustomer",
-					"ExistsFlagSynapse": "1",
-					"KeyColumns": "_Id",
-					"DeltaDataADLSFullPath": "abfss://data@synapsesynccav.dfs.core.windows.net/Sample/AdventureWorks/FactInternetSales/",
-					"DeltaDataDatabricksKeyVaultScope": "DataLakeStorageKey",
-					"DeltaDataAzureKeyVaultSecretName": "DataLakeStorageKey",
-					"SynapseSyncDataADLSFullPath": "abfss://data@synapsesynccav.dfs.core.windows.net/Sample/",
-					"SynapseSyncDataDatabricksKeyVaultScope": "DataLakeStorageKey ",
-					"SynapseSyncDataAzureKeyVaultSecretName": "DataLakeStorageKey"
-				}
 			}
 		},
 		"variables": {
