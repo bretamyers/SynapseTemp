@@ -474,16 +474,8 @@
 							"typeProperties": {
 								"notebookPath": "/Synapse Lakehouse Sync/Synapse Lakehouse Sync Create Tracking Table",
 								"baseParameters": {
-									"SyncFolderPathFull": {
+									"SynapseLakehouseSyncParameters": {
 										"value": "@item().SyncFolderPathFull",
-										"type": "Expression"
-									},
-									"PoolName": {
-										"value": "@item().PoolName",
-										"type": "Expression"
-									},
-									"SynapseWorkspaceName": {
-										"value": "@pipeline().DataFactory",
 										"type": "Expression"
 									}
 								}
@@ -623,7 +615,7 @@
 					"source": {
 						"type": "SqlDWSource",
 						"sqlReaderQuery": {
-							"value": "@concat('DECLARE @sql NVARCHAR(MAX)\n\nSET @sql = ''', activity('Lookup - Sync Pools').output.value, '''\n\nSELECT DISTINCT PoolName, SynapseSyncDataADLSFullPath\nFROM OPENJSON(@sql)\nWITH\n(\n\tPoolName NVARCHAR(1000) ''$.PoolName''\n\t,SynapseSyncDataADLSFullPath NVARCHAR(1000) ''$.SynapseSyncDataADLSFullPath''\n)\n')",
+							"value": "@concat('DECLARE @sql NVARCHAR(MAX)\n\nSET @sql = ''', activity('Lookup - Sync Pools').output.value, '''\n\n;WITH cte AS\n(\n\tSELECT DISTINCT PoolName, SynapseSyncDataADLSFullPath, JsonValue\n\tFROM OPENJSON(@sql)\n\tWITH\n\t(\n\t\tPoolName NVARCHAR(1000) ''$.PoolName''\n\t\t,SynapseSyncDataADLSFullPath NVARCHAR(1000) ''$.SynapseSyncDataADLSFullPath''\n\t\t,JsonValue NVARCHAR(MAX) ''$'' AS JSON\n\t)\n)\nSELECT *\n\t\t,(SELECT * FROM cte FOR JSON AUTO) AS JsonString\nFROM cte\n')",
 							"type": "Expression"
 						},
 						"queryTimeout": "24:00:00",
