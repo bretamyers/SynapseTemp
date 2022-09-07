@@ -330,40 +330,12 @@
 											},
 											"waitOnCompletion": true,
 											"parameters": {
-												"SynapseSync_https": {
-													"value": "@item().SynapseSync_https",
-													"type": "Expression"
-												},
-												"TableName": {
-													"value": "@item().TableName",
-													"type": "Expression"
-												},
-												"SchemaName": {
-													"value": "@item().SchemaName",
-													"type": "Expression"
-												},
-												"PoolName": {
-													"value": "@item().PoolName",
-													"type": "Expression"
-												},
 												"PipelineValue": {
 													"value": "@variables('PipelineValues')",
 													"type": "Expression"
 												},
-												"ChangeTypesArray": {
-													"value": "@item().ChangeTypes",
-													"type": "Expression"
-												},
 												"DatabricksOutput": {
 													"value": "@item()",
-													"type": "Expression"
-												},
-												"DropTableFlag": {
-													"value": "@variables('DropTableFlag')",
-													"type": "Expression"
-												},
-												"KeyColumns": {
-													"value": "@item().KeyColumns",
 													"type": "Expression"
 												}
 											}
