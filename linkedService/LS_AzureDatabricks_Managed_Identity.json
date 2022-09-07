@@ -1,0 +1,18 @@
+{
+	"name": "LS_AzureDatabricks_Managed_Identity",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"type": "AzureDatabricks",
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		},
+		"annotations": [],
+		"typeProperties": {
+			"domain": "https://adb-6192618427154573.13.azuredatabricks.net",
+			"authentication": "MSI",
+			"workspaceResourceId": "/subscriptions/2d66c339-6faa-4b07-94b8-e85524b0c175/resourceGroups/Azure-Synapse-Lakehouse-Sync/providers/Microsoft.Databricks/workspaces/synapsesynccav",
+			"existingClusterId": "0903-004756-h7mcvtud"
+		}
+	}
+}
