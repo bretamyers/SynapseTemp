@@ -475,7 +475,7 @@
 								"notebookPath": "/Synapse Lakehouse Sync/Synapse Lakehouse Sync Create Tracking Table",
 								"baseParameters": {
 									"SynapseLakehouseSyncParameters": {
-										"value": "@item().SyncFolderPathFull",
+										"value": "@item().JsonString",
 										"type": "Expression"
 									}
 								}
