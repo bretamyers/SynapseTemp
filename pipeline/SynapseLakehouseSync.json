@@ -615,7 +615,7 @@
 					"source": {
 						"type": "SqlDWSource",
 						"sqlReaderQuery": {
-							"value": "@concat('DECLARE @sql NVARCHAR(MAX)\n\nSET @sql = ''', activity('Lookup - Sync Pools').output.value, '''\n\n;WITH cte AS\n(\n\tSELECT DISTINCT PoolName, SynapseSyncDataADLSFullPath\n\tFROM OPENJSON(@sql)\n\tWITH\n\t(\n\t\tPoolName NVARCHAR(1000) ''$.PoolName''\n\t\t,SynapseSyncDataADLSFullPath NVARCHAR(1000) ''$.SynapseSyncDataADLSFullPath''\n\t)\n)\nSELECT *\n\t\t,(SELECT * FROM cte FOR JSON AUTO) AS JsonString\nFROM cte\n')",
+							"value": "@concat('DECLARE @sql NVARCHAR(MAX)\n\nSET @sql = ''', activity('Lookup - Sync Pools').output.value, '''\n\n;WITH cte AS\n(\n\tSELECT DISTINCT PoolName, SynapseSyncDataADLSFullPath, SynapseSyncDataDatabricksKeyVaultScope, SynapseSyncDataAzureKeyVaultSecretName\n\tFROM OPENJSON(@sql)\n\tWITH\n\t(\n\t\tPoolName NVARCHAR(1000) ''$.PoolName''\n\t\t,SynapseSyncDataADLSFullPath NVARCHAR(1000) ''$.SynapseSyncDataADLSFullPath''\n\t\t,SynapseSyncDataDatabricksKeyVaultScope NVARCHAR(1000) ''$.SynapseSyncDataDatabricksKeyVaultScope''\n\t\t,SynapseSyncDataAzureKeyVaultSecretName NVARCHAR(1000) ''$.SynapseSyncDataAzureKeyVaultSecretName''\n\t)\n)\nSELECT *\n\t\t,(SELECT * FROM cte FOR JSON AUTO) AS JsonString\nFROM cte\n')",
 							"type": "Expression"
 						},
 						"queryTimeout": "24:00:00",
