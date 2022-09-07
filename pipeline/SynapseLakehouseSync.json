@@ -512,7 +512,7 @@
 					"source": {
 						"type": "SqlDWSource",
 						"sqlReaderQuery": {
-							"value": "@concat('DECLARE @sql NVARCHAR(MAX)\n\nSET @sql = ''', activity('Lookup - Sync Pools').output.value, '''\n\n;WITH cte AS\n(\n\tSELECT DISTINCT PoolName\n\tFROM OPENJSON(@sql)\n\tWITH\n\t(\n\t\tPoolName NVARCHAR(1000) ''$.PoolName''\n\t)\n)\nSELECT *\n\t\t,(SELECT * FROM cte FOR JSON AUTO) AS JsonString\nFROM cte\n')",
+							"value": "@concat('DECLARE @sql NVARCHAR(MAX)\n\nSET @sql = ''', activity('Lookup - Sync Pools').output.value, '''\n\nSELECT DISTINCT PoolName\nFROM OPENJSON(@sql)\nWITH\n(\n\tPoolName NVARCHAR(1000) ''$.PoolName''\n)\n')",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
