@@ -382,16 +382,8 @@
 							"typeProperties": {
 								"notebookPath": "/Synapse Lakehouse Sync/Synapse Lakehouse Sync Tracking Table Optimize",
 								"baseParameters": {
-									"SyncFolderPathFull": {
+									"SynapseLakehouseSyncParameters": {
 										"value": "@item().SyncFolderPathFull",
-										"type": "Expression"
-									},
-									"PoolName": {
-										"value": "@item().PoolName",
-										"type": "Expression"
-									},
-									"SynapseWorkspaceName": {
-										"value": "@pipeline().DataFactory",
 										"type": "Expression"
 									}
 								}
@@ -428,7 +420,7 @@
 					"source": {
 						"type": "SqlDWSource",
 						"sqlReaderQuery": {
-							"value": "@concat('DECLARE @json NVARCHAR(MAX)  = '''\n, activity('Lookup - Sync Pools').output.value\n, ''' SELECT DISTINCT PoolName, DeltaDataADLSFullPath\nFROM OPENJSON(@json)\nWITH\n(\n\tPoolName NVARCHAR(1000) ''$.PoolName''\n\t,DeltaDataADLSFullPath NVARCHAR(1000) ''$.DeltaDataADLSFullPath''\n) AS a'\n)",
+							"value": "@concat('DECLARE @json NVARCHAR(MAX)  = '''\n, activity('Lookup - Sync Pools').output.value\n, ''' \nSELECT DISTINCT PoolName, DeltaDataADLSFullPath\nFROM OPENJSON(@json)\nWITH\n(\n\tPoolName NVARCHAR(1000) ''$.PoolName''\n\t,DeltaDataADLSFullPath NVARCHAR(1000) ''$.DeltaDataADLSFullPath''\n) AS a'\n)",
 							"type": "Expression"
 						},
 						"queryTimeout": "24:00:00",
