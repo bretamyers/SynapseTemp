@@ -1371,20 +1371,8 @@
 				"typeProperties": {
 					"notebookPath": "/Synapse Lakehouse Sync/Synapse Lakehouse Sync Tracking Table Log Success",
 					"baseParameters": {
-						"PoolName": {
-							"value": "@pipeline().parameters.DatabricksOutput['PoolName']",
-							"type": "Expression"
-						},
-						"SynapseLakehouseSyncKey": {
-							"value": "@pipeline().parameters.DatabricksOutput.SynapseLakehouseSyncKey",
-							"type": "Expression"
-						},
-						"SyncFolderPathFull": {
-							"value": "@pipeline().parameters.DatabricksOutput.SynapseSync_abfss",
-							"type": "Expression"
-						},
-						"SynapseWorkspaceName": {
-							"value": "@pipeline().DataFactory",
+						"SynapseLakehouseSyncParameters": {
+							"value": "@string(pipeline().parameters.DatabricksOutput)",
 							"type": "Expression"
 						},
 						"TableRowCountSynapse": {
