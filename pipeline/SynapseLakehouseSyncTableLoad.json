@@ -1410,7 +1410,7 @@
 					"source": {
 						"type": "SqlDWSource",
 						"sqlReaderQuery": {
-							"value": "@concat('EXECUTE AS USER = ''Userstaticrc10''; \nDECLARE @RowInsertDateTime DATETIME2(0) = GETDATE()\n    ,@TableRowCountSynapse BIGINT = (SELECT COUNT_BIG(*) FROM ', pipeline().parameters.DatabricksOutput['SchemaName'], '.', pipeline().parameters.DatabricksOutput['TableName'], ')\nINSERT logging.SynapseLakehouseSync (PoolName, SchemaName, TableName, TableRowCountADLS, TableRowCountSynapse, RowInsertDateTime)\nVALUES (\n''', pipeline().parameters.DatabricksOutput['PoolName'],''',\n''', pipeline().parameters.DatabricksOutput['SchemaName'],''',\n''', pipeline().parameters.DatabricksOutput['TableName'],''', '\n, pipeline().parameters.DatabricksOutput.TableRowCountADLS\n, ', @TableRowCountSynapse, @RowInsertDateTime)\n; \n\nSELECT @TableRowCountSynapse AS TableRowCountSynapse\n')",
+							"value": "@concat('EXECUTE AS USER = ''Userstaticrc10''; \nDECLARE @RowInsertDateTime DATETIME2(0) = GETDATE()\n    ,@TableRowCountSynapse BIGINT = (SELECT COUNT_BIG(*) FROM ', pipeline().parameters.DatabricksOutput['SchemaName'], '.', pipeline().parameters.DatabricksOutput['TableName'], ')\nINSERT logging.SynapseLakehouseSync (PoolName, SchemaName, TableName, TableRowCountADLS, TableRowCountSynapse, RowInsertDateTime)\nVALUES (\n''', pipeline().parameters.DatabricksOutput['PoolName'],''',\n''', pipeline().parameters.DatabricksOutput['SchemaName'],''',\n''', pipeline().parameters.DatabricksOutput['TableName'],''',\n', pipeline().parameters.DatabricksOutput['TableRowCountADLS'], \n', @TableRowCountSynapse, @RowInsertDateTime)\n; \n\nSELECT @TableRowCountSynapse AS TableRowCountSynapse\n')",
 							"type": "Expression"
 						},
 						"queryTimeout": "24:00:00",
