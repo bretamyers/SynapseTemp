@@ -1348,7 +1348,7 @@
 						]
 					},
 					{
-						"activity": "Log Row Count - SynapseLakehouseSyncRecordCount",
+						"activity": "Log Row Count - SynapseLakehouseSync",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -1387,7 +1387,7 @@
 				}
 			},
 			{
-				"name": "Log Row Count - SynapseLakehouseSyncRecordCount",
+				"name": "Log Row Count - SynapseLakehouseSync",
 				"description": "Log the row count for the table in the logging.SynapseLakehouseSyncRecordCount logging table.",
 				"type": "Lookup",
 				"dependsOn": [
