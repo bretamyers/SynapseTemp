@@ -98,6 +98,10 @@
 						"SynapseWorkspaceName": {
 							"value": "@pipeline().DataFactory",
 							"type": "Expression"
+						},
+						"SynapseLakehouseSyncParameters": {
+							"value": "@concat('{\"DataFolderPathFull\":\"', 'abfss://', 'data', '@', pipeline().DataFactory, '.dfs.core.windows.net/Sample/', '\"'\n,', \"DatabaseName\":\"AdventureWorks\", \"SynapseWorkspaceName\":\"', pipeline().DataFactory, '\"}')",
+							"type": "Expression"
 						}
 					}
 				},
