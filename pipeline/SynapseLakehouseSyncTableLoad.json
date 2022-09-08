@@ -1352,12 +1352,6 @@
 						"dependencyConditions": [
 							"Succeeded"
 						]
-					},
-					{
-						"activity": "Build the table if replicated",
-						"dependencyConditions": [
-							"Succeeded"
-						]
 					}
 				],
 				"policy": {
@@ -1417,59 +1411,6 @@
 						"type": "SqlDWSource",
 						"sqlReaderQuery": {
 							"value": "@concat('EXECUTE AS USER = ''Userstaticrc10''; DECLARE @RowInsertDateTime DATETIME2(0) = GETDATE()\n,@TableRowCountSynapse BIGINT = (SELECT COUNT_BIG(*) FROM ', pipeline().parameters.DatabricksOutput['SchemaName'], '.', pipeline().parameters.DatabricksOutput['TableName'], ')\nINSERT logging.SynapseLakehouseSyncRecordCount (PoolName, SchemaName, TableName, TableRowCountADLS, TableRowCountSynapse, RowInsertDateTime)\nVALUES (\n''', pipeline().parameters.DatabricksOutput['PoolName'],''',\n''', pipeline().parameters.DatabricksOutput['SchemaName'],''',\n''', pipeline().parameters.DatabricksOutput['TableName'],''', '\n, pipeline().parameters.DatabricksOutput.TableRowCountADLS\n, ', @TableRowCountSynapse, @RowInsertDateTime)\n; SELECT @TableRowCountSynapse AS TableRowCountSynapse\n')",
-							"type": "Expression"
-						},
-						"queryTimeout": "24:00:00",
-						"partitionOption": "None"
-					},
-					"dataset": {
-						"referenceName": "DS_Synapse_Managed_Identity",
-						"type": "DatasetReference",
-						"parameters": {
-							"ServerName": {
-								"value": "@concat(pipeline().DataFactory, '.sql.azuresynapse.net')",
-								"type": "Expression"
-							},
-							"DatabaseName": {
-								"value": "@pipeline().parameters.DatabricksOutput['PoolName']",
-								"type": "Expression"
-							}
-						}
-					},
-					"firstRowOnly": false
-				}
-			},
-			{
-				"name": "Build the table if replicated",
-				"description": "Build the table if it has a replicated distribution.",
-				"type": "Lookup",
-				"dependsOn": [
-					{
-						"activity": "ForEach - Create and Load the Synapse Table",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					},
-					{
-						"activity": "ForEach - Pool - Inserts",
-						"dependencyConditions": [
-							"Succeeded"
-						]
-					}
-				],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"source": {
-						"type": "SqlDWSource",
-						"sqlReaderQuery": {
-							"value": "@concat('EXECUTE AS USER = ''Userstaticrc10''; \nDECLARE @sql NVARCHAR(MAX)\n\nSELECT\t@sql = CONCAT(''SELECT TOP 1 * FROM ['', SCHEMA_NAME(t.schema_id), ''].['', t.[name], '']'')\nFROM sys.tables t \nJOIN sys.pdw_replicated_table_cache_state c \nON c.object_id = t.object_id\nJOIN sys.pdw_table_distribution_properties p\nON p.object_id = t.object_id\nWHERE 1=1\nAND c.[state] = ''NotReady''\nAND p.[distribution_policy_desc] = ''REPLICATE''\nAND SCHEMA_NAME(t.schema_id) = ''', pipeline().parameters.DatabricksOutput['SchemaName'], '''\nAND t.[name] = ''', pipeline().parameters.DatabricksOutput['TableName'], '''\n\nPRINT (@sql)\nEXEC (@sql)\n;\nSELECT 1 AS a')",
 							"type": "Expression"
 						},
 						"queryTimeout": "24:00:00",
