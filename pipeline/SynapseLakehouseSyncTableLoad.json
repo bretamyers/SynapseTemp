@@ -166,7 +166,7 @@
 								"source": {
 									"type": "SqlDWSource",
 									"sqlReaderQuery": {
-										"value": "@replace(replace(replace(variables('SqlCommandCreateStagingTable'), '{SchemaNameStaging}', pipeline().parameters.DatabricksOutput['SchemaName'])\n, '{TableNameStaging}', concat(pipeline().parameters.DatabricksOutput['TableName'], '_delete'))\n,  '{FolderPathFull}', concat(pipeline().parameters.DatabricksOutput['SynapseSync_https'], '/', pipeline().parameters.DatabricksOutput['PoolName'], '_SynapseLakehouseSync/', pipeline().parameters.DatabricksOutput['SchemaName'], '/', pipeline().parameters.DatabricksOutput['TableName'], '/_change_type=delete'))",
+										"value": "@replace(replace(replace(variables('SqlCommandCreateStagingTable'), '{SchemaNameStaging}', pipeline().parameters.DatabricksOutput['SchemaName'])\n, '{TableNameStaging}', concat(pipeline().parameters.DatabricksOutput['TableName'], '_delete'))\n,  '{FolderPathFull}', concat(pipeline().parameters.DatabricksOutput['SynapseSync_https'], '/', pipeline().parameters.DatabricksOutput['SynapseWorkspaceName'], '_', pipeline().parameters.DatabricksOutput['PoolName'], '_SynapseLakehouseSync/', pipeline().parameters.DatabricksOutput['SchemaName'], '/', pipeline().parameters.DatabricksOutput['TableName'], '/_change_type=delete'))",
 										"type": "Expression"
 									},
 									"queryTimeout": "24:00:00",
@@ -257,7 +257,7 @@
 								"source": {
 									"type": "SqlDWSource",
 									"sqlReaderQuery": {
-										"value": "@concat('EXECUTE AS user = ''Userstaticrc10'' COPY INTO ['\n, pipeline().parameters.DatabricksOutput['SchemaName'], '].[', pipeline().parameters.DatabricksOutput['TableName'], '_delete'\n, '] FROM '''\n, pipeline().parameters.DatabricksOutput['SynapseSync_https'], '/', pipeline().parameters.DatabricksOutput['PoolName'], '_SynapseLakehouseSync/', pipeline().parameters.DatabricksOutput['SchemaName'], '/', pipeline().parameters.DatabricksOutput['TableName']\n, '/_change_type=delete'\n, ''' WITH ( FILE_TYPE = ''PARQUET'', MAXERRORS = 0, COMPRESSION = ''snappy'', IDENTITY_INSERT = ''OFF'', CREDENTIAL = (IDENTITY = ''Managed Identity'')) OPTION (LABEL = ''COPY - ['\n, pipeline().parameters.DatabricksOutput['SchemaName'], '].[', pipeline().parameters.DatabricksOutput['TableName'], '_delete', '] - '\n, pipeline().parameters.PipelineValue[0].PipelineRunId, ''');SELECT 1 AS a')",
+										"value": "@concat('EXECUTE AS user = ''Userstaticrc10'' COPY INTO ['\n, pipeline().parameters.DatabricksOutput['SchemaName'], '].[', pipeline().parameters.DatabricksOutput['TableName'], '_delete'\n, '] FROM '''\n, pipeline().parameters.DatabricksOutput['SynapseSync_https'], '/', pipeline().parameters.DatabricksOutput['SynapseWorkspaceName'], '_', pipeline().parameters.DatabricksOutput['PoolName'], '_SynapseLakehouseSync/', pipeline().parameters.DatabricksOutput['SchemaName'], '/', pipeline().parameters.DatabricksOutput['TableName']\n, '/_change_type=delete'\n, ''' WITH ( FILE_TYPE = ''PARQUET'', MAXERRORS = 0, COMPRESSION = ''snappy'', IDENTITY_INSERT = ''OFF'', CREDENTIAL = (IDENTITY = ''Managed Identity'')) OPTION (LABEL = ''COPY - ['\n, pipeline().parameters.DatabricksOutput['SchemaName'], '].[', pipeline().parameters.DatabricksOutput['TableName'], '_delete', '] - '\n, pipeline().parameters.PipelineValue[0].PipelineRunId, ''');SELECT 1 AS a')",
 										"type": "Expression"
 									},
 									"queryTimeout": "24:00:00",
