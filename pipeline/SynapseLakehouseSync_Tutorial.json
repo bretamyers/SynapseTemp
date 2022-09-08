@@ -64,7 +64,10 @@
 						"referenceName": "SynapseLakehouseSync",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"StorageAccountNameMetadata": "https://synapsesynccav.dfs.core.windows.net/data/Synapse_Lakehouse_Sync_Metadata.csv"
+					}
 				}
 			},
 			{
@@ -128,7 +131,10 @@
 						"referenceName": "SynapseLakehouseSync",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"StorageAccountNameMetadata": "https://synapsesynccav.dfs.core.windows.net/data/Synapse_Lakehouse_Sync_Metadata.csv"
+					}
 				}
 			},
 			{
@@ -241,7 +247,10 @@
 						"referenceName": "SynapseLakehouseSync",
 						"type": "PipelineReference"
 					},
-					"waitOnCompletion": true
+					"waitOnCompletion": true,
+					"parameters": {
+						"StorageAccountNameMetadata": "https://synapsesynccav.dfs.core.windows.net/data/Synapse_Lakehouse_Sync_Metadata.csv"
+					}
 				}
 			},
 			{
