@@ -82,7 +82,7 @@
 								"notebookPath": "/Synapse Lakehouse Sync/Synapse Lakehouse Sync ADLS",
 								"baseParameters": {
 									"SynapseLakehouseSyncParameters": {
-										"value": "@item()",
+										"value": "@string(item())",
 										"type": "Expression"
 									}
 								}
