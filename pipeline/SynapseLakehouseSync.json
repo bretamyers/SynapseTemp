@@ -20,7 +20,7 @@
 					"source": {
 						"type": "SqlDWSource",
 						"sqlReaderQuery": {
-							"value": "@concat('SELECT PoolName, SchemaName, TableName, KeyColumns\n,DeltaDataADLSFullPath, DeltaDataDatabricksKeyVaultScope, DeltaDataAzureKeyVaultSecretName\n,SynapseSyncDataADLSFullPath, SynapseSyncDataDatabricksKeyVaultScope, SynapseSyncDataAzureKeyVaultSecretName\n FROM OPENROWSET(\n        BULK ''', pipeline().parameters.StorageAccountNameMetadata, ''',\n        FORMAT = ''CSV'',\n\t\tPARSER_VERSION = ''2.0'', \n        HEADER_ROW = TRUE\n    ) AS [result]')",
+							"value": "@concat('SELECT PoolName, SchemaName, TableName, KeyColumns\n,DeltaDataADLSFullPath, DeltaDataDatabricksKeyVaultScope, DeltaDataAzureKeyVaultSecretName\n,SynapseSyncDataADLSFullPath, SynapseSyncDataDatabricksKeyVaultScope, SynapseSyncDataAzureKeyVaultSecretName\n,''', pipeline().DataFactory, ''' AS SynapseWorkspaceName\n FROM OPENROWSET(\n        BULK ''', pipeline().parameters.StorageAccountNameMetadata, ''',\n        FORMAT = ''CSV'',\n\t\tPARSER_VERSION = ''2.0'', \n        HEADER_ROW = TRUE\n    ) AS [result]')",
 							"type": "Expression"
 						},
 						"queryTimeout": "24:00:00",
