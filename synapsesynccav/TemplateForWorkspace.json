@@ -814,7 +814,7 @@
 							"notebookPath": "/Synapse Lakehouse Sync Tutorial/Convert Parquet to Delta Tables - AdventureWorks",
 							"baseParameters": {
 								"SynapseLakehouseSyncParameters": {
-									"value": "@concat('{\"DataFolderPathFull\":\"', 'abfss://', 'data', '@', pipeline().DataFactory, '.dfs.core.windows.net/Sample/', '\"'\n,', \"DatabaseName\":\"AdventureWorks\", \"SynapseWorkspaceName\":\"', pipeline().DataFactory\n, '\", \"ParquetDataADLSFullPath\":\"abfss://data@synapsesynccav.dfs.core.windows.net/Sample/\", \"ParquetDataDatabricksKeyVaultScope\":\"DataLakeStorageKey\", \"ParquetDataAzureKeyVaultSecretName\":\"DataLakeStorageKey\"}')",
+									"value": "@concat('{\"DeltaDataFolderPathFull\":\"', 'abfss://', 'data', '@', pipeline().DataFactory, '.dfs.core.windows.net/Sample/', '\"'\n,', \"DatabaseName\":\"AdventureWorks\", \"SynapseWorkspaceName\":\"', pipeline().DataFactory\n, '\", \"ParquetDataADLSFullPath\":\"abfss://data@synapsesynccav.dfs.core.windows.net/Sample/\", \"ParquetDataDatabricksKeyVaultScope\":\"DataLakeStorageKey\", \"ParquetDataAzureKeyVaultSecretName\":\"DataLakeStorageKey\"}')",
 									"type": "Expression"
 								}
 							}
@@ -872,7 +872,7 @@
 							"notebookPath": "/Synapse Lakehouse Sync Tutorial/Simulate Data Changes - AdventureWorks",
 							"baseParameters": {
 								"SynapseLakehouseSyncParameters": {
-									"value": "@concat('{\"DataFolderPathFull\":\"', 'abfss://', 'data', '@', pipeline().DataFactory, '.dfs.core.windows.net/Sample/', '\"'\n,', \"DatabaseName\":\"AdventureWorks\", \"SynapseWorkspaceName\":\"', pipeline().DataFactory\n, '\", \"ParquetDataADLSFullPath\":\"abfss://data@synapsesynccav.dfs.core.windows.net/Sample/\", \"ParquetDataDatabricksKeyVaultScope\":\"DataLakeStorageKey\", \"ParquetDataAzureKeyVaultSecretName\":\"DataLakeStorageKey\"}')",
+									"value": "@concat('{\"DeltaDataFolderPathFull\":\"', 'abfss://', 'data', '@', pipeline().DataFactory, '.dfs.core.windows.net/Sample/', '\"'\n,', \"DatabaseName\":\"AdventureWorks\", \"SynapseWorkspaceName\":\"', pipeline().DataFactory\n, '\", \"ParquetDataADLSFullPath\":\"abfss://data@synapsesynccav.dfs.core.windows.net/Sample/\", \"ParquetDataDatabricksKeyVaultScope\":\"DataLakeStorageKey\", \"ParquetDataAzureKeyVaultSecretName\":\"DataLakeStorageKey\"}')",
 									"type": "Expression"
 								}
 							}
