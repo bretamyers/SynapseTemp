@@ -1291,7 +1291,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@if(pipeline().parameters.DatabricksOutput['DropTableFlag']\n, pipeline().parameters.DatabricksOutput['ChangeTypesArray']\n, take(array(''), 0)\n)",
+						"value": "@if(pipeline().parameters.DatabricksOutput['DropTableFlag']\n, pipeline().parameters.DatabricksOutput['ChangeTypes']\n, take(array(''), 0)\n)",
 						"type": "Expression"
 					},
 					"activities": [
