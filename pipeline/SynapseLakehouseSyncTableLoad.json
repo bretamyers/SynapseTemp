@@ -11,7 +11,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@pipeline().parameters.DatabricksOutput['ChangeTypesArray']",
+						"value": "@pipeline().parameters.DatabricksOutput['ChangeTypes']",
 						"type": "Expression"
 					},
 					"condition": {
@@ -28,7 +28,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@pipeline().parameters.DatabricksOutput['ChangeTypesArray']",
+						"value": "@pipeline().parameters.DatabricksOutput['ChangeTypes']",
 						"type": "Expression"
 					},
 					"condition": {
@@ -45,7 +45,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@pipeline().parameters.DatabricksOutput['ChangeTypesArray']",
+						"value": "@pipeline().parameters.DatabricksOutput['ChangeTypes']",
 						"type": "Expression"
 					},
 					"condition": {
@@ -62,7 +62,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"items": {
-						"value": "@pipeline().parameters.DatabricksOutput['ChangeTypesArray']",
+						"value": "@pipeline().parameters.DatabricksOutput['ChangeTypes']",
 						"type": "Expression"
 					},
 					"condition": {
