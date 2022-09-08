@@ -1493,20 +1493,21 @@
 					"ChangeTypes": [
 						"full_load"
 					],
-					"TableRowCountADLS": 6574,
+					"TableRowCountADLS": 606,
 					"ExistsFlagSynapse": "True",
 					"PoolName": "DataWarehouse",
 					"SchemaName": "AdventureWorks",
-					"TableName": "DimDate",
+					"TableName": "DimProduct",
 					"KeyColumns": "_Id",
-					"DeltaDataADLSFullPath": "abfss://data@synapsesynccav.dfs.core.windows.net/Sample/AdventureWorks/DimDate/",
+					"DeltaDataADLSFullPath": "abfss://data@synapsesynccav.dfs.core.windows.net/Sample/AdventureWorks/DimProduct",
 					"DeltaDataDatabricksKeyVaultScope": "DataLakeStorageKey",
 					"DeltaDataAzureKeyVaultSecretName": "DataLakeStorageKey",
 					"SynapseSyncDataADLSFullPath": "abfss://data@synapsesynccav.dfs.core.windows.net/Sample/",
 					"SynapseSyncDataDatabricksKeyVaultScope": "DataLakeStorageKey",
 					"SynapseSyncDataAzureKeyVaultSecretName": "DataLakeStorageKey",
+					"SynapseWorkspaceName": "synapsesynccav",
 					"DropTableFlag": "True",
-					"SynapseLakehouseSyncKey": "8bbe075d4700a11686f0b0a3a3a98fb3"
+					"SynapseLakehouseSyncKey": "cdae7bfac3427a0029b86bada994290d"
 				}
 			}
 		},
