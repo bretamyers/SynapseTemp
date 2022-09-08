@@ -148,7 +148,7 @@
 										"notebookPath": "/Synapse Lakehouse Sync/Synapse Lakehouse Sync ADLS",
 										"baseParameters": {
 											"SynapseLakehouseSyncParameters": {
-												"value": "@item()",
+												"value": "@string(item())",
 												"type": "Expression"
 											}
 										}
@@ -448,16 +448,8 @@
 									"typeProperties": {
 										"notebookPath": "/Synapse Lakehouse Sync/Synapse Lakehouse Sync Tracking Table Optimize",
 										"baseParameters": {
-											"SyncFolderPathFull": {
+											"SynapseLakehouseSyncParameters": {
 												"value": "@item().SyncFolderPathFull",
-												"type": "Expression"
-											},
-											"PoolName": {
-												"value": "@item().PoolName",
-												"type": "Expression"
-											},
-											"SynapseWorkspaceName": {
-												"value": "@pipeline().DataFactory",
 												"type": "Expression"
 											}
 										}
@@ -494,7 +486,7 @@
 							"source": {
 								"type": "SqlDWSource",
 								"sqlReaderQuery": {
-									"value": "@concat('DECLARE @json NVARCHAR(MAX)  = '''\n, activity('Lookup - Sync Pools').output.value\n, ''' SELECT DISTINCT PoolName, DeltaDataADLSFullPath\nFROM OPENJSON(@json)\nWITH\n(\n\tPoolName NVARCHAR(1000) ''$.PoolName''\n\t,DeltaDataADLSFullPath NVARCHAR(1000) ''$.DeltaDataADLSFullPath''\n) AS a'\n)",
+									"value": "@concat('DECLARE @json NVARCHAR(MAX)  = '''\n, activity('Lookup - Sync Pools').output.value\n, ''' \n\n;WITH cte AS\n(\n\tSELECT DISTINCT PoolName, ''', pipeline().DataFactory, ''' AS SynapseWorkspaceName\n\t\t,DeltaDataADLSFullPath, DeltaDataDatabricksKeyVaultScope, DeltaDataAzureKeyVaultSecretName\n\t\t,SynapseSyncDataADLSFullPath, SynapseSyncDataDatabricksKeyVaultScope, SynapseSyncDataAzureKeyVaultSecretName\n\tFROM OPENJSON(@json)\n\tWITH\n\t(\n\t\tPoolName NVARCHAR(1000) ''$.PoolName''\n\t\t,DeltaDataADLSFullPath NVARCHAR(1000) ''$.DeltaDataADLSFullPath''\n\t\t,DeltaDataDatabricksKeyVaultScope NVARCHAR(1000) ''$.DeltaDataDatabricksKeyVaultScope''\n\t\t,DeltaDataAzureKeyVaultSecretName NVARCHAR(1000) ''$.DeltaDataAzureKeyVaultSecretName''\n\t\t,SynapseSyncDataADLSFullPath NVARCHAR(1000) ''$.SynapseSyncDataADLSFullPath''\n\t\t,SynapseSyncDataDatabricksKeyVaultScope NVARCHAR(1000) ''$.SynapseSyncDataDatabricksKeyVaultScope''\n\t\t,SynapseSyncDataAzureKeyVaultSecretName NVARCHAR(1000) ''$.SynapseSyncDataAzureKeyVaultSecretName''\n\t)\n)\nSELECT *\n\t\t,(SELECT * FROM cte FOR JSON AUTO) AS JsonString\nFROM cte\n')",
 									"type": "Expression"
 								},
 								"queryTimeout": "24:00:00",
@@ -548,16 +540,8 @@
 									"typeProperties": {
 										"notebookPath": "/Synapse Lakehouse Sync/Synapse Lakehouse Sync Create Tracking Table",
 										"baseParameters": {
-											"SyncFolderPathFull": {
-												"value": "@item().SyncFolderPathFull",
-												"type": "Expression"
-											},
-											"PoolName": {
-												"value": "@item().PoolName",
-												"type": "Expression"
-											},
-											"SynapseWorkspaceName": {
-												"value": "@pipeline().DataFactory",
+											"SynapseLakehouseSyncParameters": {
+												"value": "@item().JsonString",
 												"type": "Expression"
 											}
 										}
@@ -697,7 +681,7 @@
 							"source": {
 								"type": "SqlDWSource",
 								"sqlReaderQuery": {
-									"value": "@concat('DECLARE @sql NVARCHAR(MAX)\n\nSET @sql = ''', activity('Lookup - Sync Pools').output.value, '''\n\nSELECT DISTINCT PoolName, SynapseSyncDataADLSFullPath\nFROM OPENJSON(@sql)\nWITH\n(\n\tPoolName NVARCHAR(1000) ''$.PoolName''\n\t,SynapseSyncDataADLSFullPath NVARCHAR(1000) ''$.SynapseSyncDataADLSFullPath''\n)\n')",
+									"value": "@concat('DECLARE @sql NVARCHAR(MAX)\n\nSET @sql = ''', activity('Lookup - Sync Pools').output.value, '''\n\n;WITH cte AS\n(\n\tSELECT DISTINCT PoolName, SynapseSyncDataADLSFullPath, SynapseSyncDataDatabricksKeyVaultScope, SynapseSyncDataAzureKeyVaultSecretName\n\tFROM OPENJSON(@sql)\n\tWITH\n\t(\n\t\tPoolName NVARCHAR(1000) ''$.PoolName''\n\t\t,SynapseSyncDataADLSFullPath NVARCHAR(1000) ''$.SynapseSyncDataADLSFullPath''\n\t\t,SynapseSyncDataDatabricksKeyVaultScope NVARCHAR(1000) ''$.SynapseSyncDataDatabricksKeyVaultScope''\n\t\t,SynapseSyncDataAzureKeyVaultSecretName NVARCHAR(1000) ''$.SynapseSyncDataAzureKeyVaultSecretName''\n\t)\n)\nSELECT *\n\t\t,(SELECT * FROM cte FOR JSON AUTO, WITHOUT_ARRAY_WRAPPER) AS JsonString\nFROM cte\n')",
 									"type": "Expression"
 								},
 								"queryTimeout": "24:00:00",
@@ -1310,7 +1294,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@pipeline().parameters.DatabricksOutput['ChangeTypesArray']",
+								"value": "@pipeline().parameters.DatabricksOutput['ChangeTypes']",
 								"type": "Expression"
 							},
 							"condition": {
@@ -1327,7 +1311,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@pipeline().parameters.DatabricksOutput['ChangeTypesArray']",
+								"value": "@pipeline().parameters.DatabricksOutput['ChangeTypes']",
 								"type": "Expression"
 							},
 							"condition": {
@@ -1344,7 +1328,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@pipeline().parameters.DatabricksOutput['ChangeTypesArray']",
+								"value": "@pipeline().parameters.DatabricksOutput['ChangeTypes']",
 								"type": "Expression"
 							},
 							"condition": {
@@ -1361,7 +1345,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@pipeline().parameters.DatabricksOutput['ChangeTypesArray']",
+								"value": "@pipeline().parameters.DatabricksOutput['ChangeTypes']",
 								"type": "Expression"
 							},
 							"condition": {
@@ -2647,13 +2631,7 @@
 								]
 							},
 							{
-								"activity": "Log Row Count - SynapseLakehouseSyncRecordCount",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "Build the table if replicated",
+								"activity": "Log Row Count - SynapseLakehouseSync",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -2670,24 +2648,12 @@
 						"typeProperties": {
 							"notebookPath": "/Synapse Lakehouse Sync/Synapse Lakehouse Sync Tracking Table Log Success",
 							"baseParameters": {
-								"PoolName": {
-									"value": "@pipeline().parameters.DatabricksOutput['PoolName']",
-									"type": "Expression"
-								},
-								"SynapseLakehouseSyncKey": {
-									"value": "@pipeline().parameters.DatabricksOutput.SynapseLakehouseSyncKey",
-									"type": "Expression"
-								},
-								"SyncFolderPathFull": {
-									"value": "@pipeline().parameters.DatabricksOutput.SynapseSync_abfss",
-									"type": "Expression"
-								},
-								"SynapseWorkspaceName": {
-									"value": "@pipeline().DataFactory",
+								"SynapseLakehouseSyncParameters": {
+									"value": "@string(pipeline().parameters.DatabricksOutput)",
 									"type": "Expression"
 								},
 								"TableRowCountSynapse": {
-									"value": "@string(activity('Log Row Count - SynapseLakehouseSyncRecordCount').output.value[0].TableRowCountSynapse)",
+									"value": "@string(activity('Log Row Count - SynapseLakehouseSync').output.value[0].TableRowCountSynapse)",
 									"type": "Expression"
 								}
 							}
@@ -2698,7 +2664,7 @@
 						}
 					},
 					{
-						"name": "Log Row Count - SynapseLakehouseSyncRecordCount",
+						"name": "Log Row Count - SynapseLakehouseSync",
 						"description": "Log the row count for the table in the logging.SynapseLakehouseSyncRecordCount logging table.",
 						"type": "Lookup",
 						"dependsOn": [
@@ -2727,60 +2693,7 @@
 							"source": {
 								"type": "SqlDWSource",
 								"sqlReaderQuery": {
-									"value": "@concat('EXECUTE AS USER = ''Userstaticrc10''; DECLARE @RowInsertDateTime DATETIME2(0) = GETDATE()\n,@TableRowCountSynapse BIGINT = (SELECT COUNT_BIG(*) FROM ', pipeline().parameters.DatabricksOutput['SchemaName'], '.', pipeline().parameters.DatabricksOutput['TableName'], ')\nINSERT logging.SynapseLakehouseSyncRecordCount (PoolName, SchemaName, TableName, TableRowCountADLS, TableRowCountSynapse, RowInsertDateTime)\nVALUES (\n''', pipeline().parameters.DatabricksOutput['PoolName'],''',\n''', pipeline().parameters.DatabricksOutput['SchemaName'],''',\n''', pipeline().parameters.DatabricksOutput['TableName'],''', '\n, pipeline().parameters.DatabricksOutput.TableRowCountADLS\n, ', @TableRowCountSynapse, @RowInsertDateTime)\n; SELECT @TableRowCountSynapse AS TableRowCountSynapse\n')",
-									"type": "Expression"
-								},
-								"queryTimeout": "24:00:00",
-								"partitionOption": "None"
-							},
-							"dataset": {
-								"referenceName": "DS_Synapse_Managed_Identity",
-								"type": "DatasetReference",
-								"parameters": {
-									"ServerName": {
-										"value": "@concat(pipeline().DataFactory, '.sql.azuresynapse.net')",
-										"type": "Expression"
-									},
-									"DatabaseName": {
-										"value": "@pipeline().parameters.DatabricksOutput['PoolName']",
-										"type": "Expression"
-									}
-								}
-							},
-							"firstRowOnly": false
-						}
-					},
-					{
-						"name": "Build the table if replicated",
-						"description": "Build the table if it has a replicated distribution.",
-						"type": "Lookup",
-						"dependsOn": [
-							{
-								"activity": "ForEach - Create and Load the Synapse Table",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							},
-							{
-								"activity": "ForEach - Pool - Inserts",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "SqlDWSource",
-								"sqlReaderQuery": {
-									"value": "@concat('EXECUTE AS USER = ''Userstaticrc10''; \nDECLARE @sql NVARCHAR(MAX)\n\nSELECT\t@sql = CONCAT(''SELECT TOP 1 * FROM ['', SCHEMA_NAME(t.schema_id), ''].['', t.[name], '']'')\nFROM sys.tables t \nJOIN sys.pdw_replicated_table_cache_state c \nON c.object_id = t.object_id\nJOIN sys.pdw_table_distribution_properties p\nON p.object_id = t.object_id\nWHERE 1=1\nAND c.[state] = ''NotReady''\nAND p.[distribution_policy_desc] = ''REPLICATE''\nAND SCHEMA_NAME(t.schema_id) = ''', pipeline().parameters.DatabricksOutput['SchemaName'], '''\nAND t.[name] = ''', pipeline().parameters.DatabricksOutput['TableName'], '''\n\nPRINT (@sql)\nEXEC (@sql)\n;\nSELECT 1 AS a')",
+									"value": "@concat('EXECUTE AS USER = ''Userstaticrc10''; DECLARE @RowInsertDateTime DATETIME2(0) = GETDATE()\n,@TableRowCountSynapse BIGINT = (SELECT COUNT_BIG(*) FROM ', pipeline().parameters.DatabricksOutput['SchemaName'], '.', pipeline().parameters.DatabricksOutput['TableName'], ')\nINSERT logging.SynapseLakehouseSync (PoolName, SchemaName, TableName, TableRowCountADLS, TableRowCountSynapse, RowInsertDateTime)\nVALUES (\n''', pipeline().parameters.DatabricksOutput['PoolName'],''',\n''', pipeline().parameters.DatabricksOutput['SchemaName'],''',\n''', pipeline().parameters.DatabricksOutput['TableName'],''', '\n, pipeline().parameters.DatabricksOutput.TableRowCountADLS\n, ', @TableRowCountSynapse, @RowInsertDateTime)\n; SELECT @TableRowCountSynapse AS TableRowCountSynapse\n')",
 									"type": "Expression"
 								},
 								"queryTimeout": "24:00:00",
