@@ -1450,16 +1450,22 @@
 				"defaultValue": {
 					"SynapseSync_abfss": "abfss://data@synapsesynccav.dfs.core.windows.net/Sample",
 					"SynapseSync_https": "https://synapsesynccav.dfs.core.windows.net/data/Sample",
-					"PoolName": "DataWarehouse",
-					"SchemaName": "AdventureWorks",
-					"TableName": "DimDate",
-					"KeyColumns": "_Id",
-					"ExistsFlagSynapse": "True",
 					"ChangeTypes": [
 						"full_load"
 					],
-					"TableRowCountADLS": "6574",
-					"SynapseLakehouseSyncKey": "bc0e483cfb3b07359e4b0a6790c453ac"
+					"ExistsFlagSynapse": "True",
+					"PoolName": "DataWarehouse",
+					"SchemaName": "AdventureWorks",
+					"TableName": "DimProduct",
+					"KeyColumns": "_Id",
+					"DeltaDataADLSFullPath": "abfss://data@synapsesynccav.dfs.core.windows.net/Sample/AdventureWorks/DimProduct",
+					"DeltaDataDatabricksKeyVaultScope": "DataLakeStorageKey",
+					"DeltaDataAzureKeyVaultSecretName": "DataLakeStorageKey",
+					"SynapseSyncDataADLSFullPath": "abfss://data@synapsesynccav.dfs.core.windows.net/Sample/",
+					"SynapseSyncDataDatabricksKeyVaultScope": "DataLakeStorageKey",
+					"SynapseSyncDataAzureKeyVaultSecretName": "DataLakeStorageKey",
+					"DropTableFlag": "True",
+					"SynapseLakehouseSyncKey": "b5c6db9cba09e87635703ecfb38d3717"
 				}
 			}
 		},
