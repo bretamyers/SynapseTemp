@@ -1366,11 +1366,7 @@
 					"notebookPath": "/Synapse Lakehouse Sync/Synapse Lakehouse Sync Tracking Table Log Success",
 					"baseParameters": {
 						"SynapseLakehouseSyncParameters": {
-							"value": "@string(activity('Add TableRowCountSynapse to Json Object').output.value[0])",
-							"type": "Expression"
-						},
-						"TableRowCountSynapse": {
-							"value": "@string(activity('Log Row Count - SynapseLakehouseSync').output.value[0].TableRowCountSynapse)",
+							"value": "@string(activity('Add TableRowCountSynapse to Json Object').output.value[0].JsonString)",
 							"type": "Expression"
 						}
 					}
