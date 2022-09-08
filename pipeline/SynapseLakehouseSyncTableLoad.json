@@ -1366,7 +1366,7 @@
 					"notebookPath": "/Synapse Lakehouse Sync/Synapse Lakehouse Sync Tracking Table Log Success",
 					"baseParameters": {
 						"SynapseLakehouseSyncParameters": {
-							"value": "@string(pipeline().parameters.DatabricksOutput)",
+							"value": "@string(activity('Add TableRowCountSynapse to Json Object').output.value[0])",
 							"type": "Expression"
 						},
 						"TableRowCountSynapse": {
