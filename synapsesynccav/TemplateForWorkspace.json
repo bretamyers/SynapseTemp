@@ -2404,7 +2404,10 @@
 							},
 							"waitOnCompletion": true,
 							"parameters": {
-								"StorageAccountNameMetadata": "https://synapsesynccav.dfs.core.windows.net/data/Synapse_Lakehouse_Sync_Metadata.csv"
+								"StorageAccountNameMetadata": {
+									"value": "@variables('StorageAccountNameMetadata')",
+									"type": "Expression"
+								}
 							}
 						}
 					},
@@ -2462,7 +2465,10 @@
 							},
 							"waitOnCompletion": true,
 							"parameters": {
-								"StorageAccountNameMetadata": "https://synapsesynccav.dfs.core.windows.net/data/Synapse_Lakehouse_Sync_Metadata.csv"
+								"StorageAccountNameMetadata": {
+									"value": "@variables('StorageAccountNameMetadata')",
+									"type": "Expression"
+								}
 							}
 						}
 					},
@@ -2578,7 +2584,10 @@
 							},
 							"waitOnCompletion": true,
 							"parameters": {
-								"StorageAccountNameMetadata": "https://synapsesynccav.dfs.core.windows.net/data/Synapse_Lakehouse_Sync_Metadata.csv"
+								"StorageAccountNameMetadata": {
+									"value": "@variables('StorageAccountNameMetadata')",
+									"type": "Expression"
+								}
 							}
 						}
 					},
@@ -2627,6 +2636,12 @@
 				"policy": {
 					"elapsedTimeMetric": {},
 					"cancelAfter": {}
+				},
+				"variables": {
+					"StorageAccountNameMetadata": {
+						"type": "String",
+						"defaultValue": "https://synapsesynccav.dfs.core.windows.net/data/Synapse_Lakehouse_Sync_Metadata.csv"
+					}
 				},
 				"folder": {
 					"name": "Synapse Lakehouse Sync Tutorial"
