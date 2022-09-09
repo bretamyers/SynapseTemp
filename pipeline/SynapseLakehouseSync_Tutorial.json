@@ -27,7 +27,7 @@
 					"notebookPath": "/Synapse Lakehouse Sync Tutorial/Convert Parquet to Delta Tables - AdventureWorks",
 					"baseParameters": {
 						"SynapseLakehouseSyncParameters": {
-							"value": "@concat('{\"DeltaDataFolderPathFull\":\"', 'abfss://', 'data', '@', pipeline().DataFactory, '.dfs.core.windows.net/Sample/', '\"'\n,', \"DatabaseName\":\"AdventureWorks\", \"SynapseWorkspaceName\":\"', pipeline().DataFactory\n, '\", \"ParquetDataADLSFullPath\":\"abfss://data@synapsesynccav.dfs.core.windows.net/Sample/\", \"ParquetDataDatabricksKeyVaultScope\":\"DataLakeStorageKey\", \"ParquetDataAzureKeyVaultSecretName\":\"DataLakeStorageKey\"}')",
+							"value": "@concat('{\"DeltaDataFolderPathFull\":\"', 'abfss://', 'gold', '@', pipeline().DataFactory, '.dfs.core.windows.net/Sample/', '\"'\n,', \"DatabaseName\":\"AdventureWorks\", \"SynapseWorkspaceName\":\"', pipeline().DataFactory\n, '\", \"ParquetDataADLSFullPath\":\"abfss://gold@enterprisedatalake.dfs.core.windows.net/Sample/\", \"ParquetDataDatabricksKeyVaultScope\":\"DataLakeStorageKey\", \"ParquetDataAzureKeyVaultSecretName\":\"DataLakeStorageKey\"}')",
 							"type": "Expression"
 						}
 					}
@@ -290,6 +290,10 @@
 			"StorageAccountNameMetadata": {
 				"type": "String",
 				"defaultValue": "https://synapsesynccav.dfs.core.windows.net/data/Synapse_Lakehouse_Sync_Metadata.csv"
+			},
+			"DeltaDataFolderPathFull": {
+				"type": "String",
+				"defaultValue": "abfss://gold@enterprisedatalake.dfs.core.windows.net/Sample/"
 			}
 		},
 		"folder": {
